@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     for x in range(0, WIDTH):
         if x % 10 == 0:
-            print('x=%d/%d\r' % (x, WIDTH), end='')
+            print('x=%d/%d (%d%%)\r' % (x, WIDTH, 100*x/WIDTH), end='')
             sys.stdout.flush()
         for y in range(0, HEIGHT//2+1):
             # Get complex number from coordinate
@@ -49,3 +49,4 @@ if __name__ == '__main__':
             draw.point([x, HEIGHT - y], hsv)
 
     image.convert('RGB').save(args.path, 'PNG')
+    print('Image successfully saved to %s.' % args.path)
