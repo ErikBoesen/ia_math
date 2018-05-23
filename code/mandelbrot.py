@@ -39,13 +39,13 @@ if __name__ == '__main__':
             sys.stdout.flush()
         for y in range(0, HEIGHT//2+1):
             # Get complex number from coordinate
-            c = complex(REAL_START + (x / WIDTH)  * (REAL_END - REAL_START),
+            c = complex(REAL_START + (x / WIDTH) * (REAL_END - REAL_START),
                         IMAG_START + (y / HEIGHT) * (IMAG_END - IMAG_START))
             m = mandelbrot(c)
-            hue = 140 if m < ITER_LIM else 0
-            saturation = 255
-            value = int(255 * m / ITER_LIM) if m < ITER_LIM else 0
-            draw.point([x, y], (hue, saturation, value))
-            draw.point([x, HEIGHT - y], (hue, saturation, value))
+            hsv = (140 if m < ITER_LIM else 0,
+                   255,
+                   int(255 * m / ITER_LIM) if m < ITER_LIM else 0)
+            draw.point([x, y], hsv)
+            draw.point([x, HEIGHT - y], hsv)
 
     image.convert('RGB').save(args.path, 'PNG')
