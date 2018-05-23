@@ -2,18 +2,16 @@ from PIL import Image, ImageDraw
 import argparse
 import sys
 
+# Image sizes
 SCALE = 400
 WIDTH = SCALE
 HEIGHT = SCALE
 
-# Plot window
+# Window bounds
 REAL_START = -2
 REAL_END = 1
 IMAG_START = -1.5
 IMAG_END = 1.5
-
-image = Image.new('HSV', (WIDTH, HEIGHT), (0, 0, 0))
-draw = ImageDraw.Draw(image)
 
 ITER_LIM = 100
 
@@ -32,6 +30,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-o', dest='path', default='output.png', help='path to which to output image')
     args = parser.parse_args()
+
+    image = Image.new('HSV', (WIDTH, HEIGHT), (0, 0, 0))
+    draw = ImageDraw.Draw(image)
 
     for x in range(0, WIDTH):
         sys.stdout.write('\033[K')
