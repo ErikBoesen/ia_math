@@ -220,3 +220,4 @@ TSWLatexianTemp*
 *-tags.tex
 
 *.pdf
+.DS_Store
