@@ -1,5 +1,4 @@
 from PIL import Image, ImageDraw
-from math import log, log2
 import sys
 
 SCALE = 800
