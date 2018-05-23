@@ -24,5 +24,19 @@ The notation and concept of the $\lambda$ calculus was first described in 1932 b
 
 The $\lambda$ calculus is sometimes referred to as a universal programming language \cite{rojastutorial}, given that it can represent and perform the computations of a ``turing machine'' (a computer) and vice versa. The $\lambda$ calculus is the basis for functional programming languages, or those whose attributes including treating functions as data and using a declarative programming paradigm \cite{hudakevolution}. The topic of functional programming is beyond the scope of this paper, however, interested readers are invited to investigate the topic through papers including \cite{totalfp} and \cite{hudakevolution}. Throughout this paper, the minimalist functional language Scheme will be occasionally used for illustration of $\lambda$ calculus concepts. Any opaque logic will be explained.
 
+\section{Notation}
+The notation used to describe $\lambda$ calculus expressions seldom bears resemblance to more traditional systems of mathematical notation. To describe, for instance, the identity function (in which a single parameter is given as input and is outputted without modification) in traditional notation, one would likely use some variation upon:
+$$f(x)=x$$
+To make the function anonymous in traditional notation, one could use:
+$$(x) \mapsto x$$
+In the $\lambda$ calculus, however, an anonymous identity function would be notated thus:
+$$\lambda x.x$$
+Some explanation of the symbolic logic used herein is in order. Only two symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The $\lambda$ calculus also defines ``applications,'' or one lambda expression applied to another.
+
+The important thing to note about the aforementioned syntax is that in pure $\lambda$ calculus, there are \textit{no other symbols} used. This leads to some occasionally verbose definitions for otherwise simple
+$$\lambda xy.x
+% TODO: Integrate this citation into the above text
+\cite{horowitz}
+
 \bibliography{research}
 \end{document}
