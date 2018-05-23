@@ -41,7 +41,7 @@ if __name__ == '__main__':
             c = complex(REAL_START + (x / WIDTH) * (REAL_END - REAL_START),
                         IMAG_START + (y / HEIGHT) * (IMAG_END - IMAG_START))
             m = mandelbrot(c)
-            hsv = (140 if m < ITER_LIM else 0,
+            hsv = (140,
                    255,
                    int(255 * m / ITER_LIM) if m < ITER_LIM else 0)
             draw.point([x, y], hsv)
