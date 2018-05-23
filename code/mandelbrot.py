@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw
+import argparse
 import sys
-
-DEFAULT_PATH = 'output.png'
 
 SCALE = 800
 WIDTH = SCALE
@@ -26,22 +25,27 @@ def mandelbrot(c):
         n += 1
     return n
 
-for x in range(0, WIDTH):
-    if x % 10 == 0:
-        print('x=%d/%d\r' % (x, WIDTH), end='')
-        sys.stdout.flush()
-    for y in range(0, HEIGHT//2+1):
-        # Convert pixel coordinate to complex number
-        c = complex(RE_START + (x / WIDTH) * (RE_END - RE_START),
-                    IM_START + (y / HEIGHT) * (IM_END - IM_START))
-        # Compute the number of iterations
-        m = mandelbrot(c)
-        # The color depends on the number of iterations
-        hue = 140 if m < MAX_ITER else 0
-        saturation = 255
-        value = int(255 * m / MAX_ITER) if m < MAX_ITER else 0
-        # Plot the point
-        draw.point([x, y], (hue, saturation, value))
-        draw.point([x, HEIGHT - y], (hue, saturation, value))
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-o', dest='path', default='output.png', help='path to which to output image')
+    args = parser.parse_args()
 
-im.convert('RGB').save(DEFAULT_PATH, 'PNG')
+    for x in range(0, WIDTH):
+        if x % 10 == 0:
+            print('x=%d/%d\r' % (x, WIDTH), end='')
+            sys.stdout.flush()
+        for y in range(0, HEIGHT//2+1):
+            # Convert pixel coordinate to complex number
+            c = complex(RE_START + (x / WIDTH) * (RE_END - RE_START),
+                        IM_START + (y / HEIGHT) * (IM_END - IM_START))
+            # Compute the number of iterations
+            m = mandelbrot(c)
+            # The color depends on the number of iterations
+            hue = 140 if m < MAX_ITER else 0
+            saturation = 255
+            value = int(255 * m / MAX_ITER) if m < MAX_ITER else 0
+            # Plot the point
+            draw.point([x, y], (hue, saturation, value))
+            draw.point([x, HEIGHT - y], (hue, saturation, value))
+
+    im.convert('RGB').save(args.path, 'PNG')
