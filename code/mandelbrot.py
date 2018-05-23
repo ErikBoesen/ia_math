@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw
 import argparse
 import sys
 
-SCALE = 800
+SCALE = 400
 WIDTH = SCALE
 HEIGHT = SCALE
 
@@ -15,7 +15,7 @@ IMAG_END = 1.5
 image = Image.new('HSV', (WIDTH, HEIGHT), (0, 0, 0))
 draw = ImageDraw.Draw(image)
 
-ITER_LIM = 70
+ITER_LIM = 100
 
 def mandelbrot(c):
     """
@@ -34,6 +34,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     for x in range(0, WIDTH):
+        sys.stdout.write('\033[K')
         print('x=%d/%d (%d%%)\r' % (x, WIDTH, 100*x/WIDTH), end='')
         sys.stdout.flush()
         for y in range(0, HEIGHT//2+1):
