@@ -12,15 +12,18 @@ REAL_END = 1
 IMAG_START = -1.5
 IMAG_END = 1.5
 
-im = Image.new('HSV', (WIDTH, HEIGHT), (0, 0, 0))
-draw = ImageDraw.Draw(im)
+image = Image.new('HSV', (WIDTH, HEIGHT), (0, 0, 0))
+draw = ImageDraw.Draw(image)
 
-MAX_ITER = 70
+ITER_LIM = 70
 
 def mandelbrot(c):
+    """
+    Count iterations to convergence.
+    """
     z = 0
     n = 0
-    while abs(z) <= 2 and n < MAX_ITER:
+    while abs(z) <= 2 and n < ITER_LIM:
         z = z*z + c
         n += 1
     return n
@@ -35,16 +38,14 @@ if __name__ == '__main__':
             print('x=%d/%d\r' % (x, WIDTH), end='')
             sys.stdout.flush()
         for y in range(0, HEIGHT//2+1):
-            # Convert pixel coordinate to complex number
-            c = complex(REAL_START + (x / WIDTH) * (REAL_END - REAL_START),
-                        IMAG_START + (y / HEIGHTH) * (IMAG_END - IMAG_START))
-            # Count iterations to convergence
+            # Get complex number from coordinate
+            c = complex(REAL_START + (x / WIDTH)  * (REAL_END - REAL_START),
+                        IMAG_START + (y / HEIGHT) * (IMAG_END - IMAG_START))
             m = mandelbrot(c)
-            hue = 140 if m < MAX_ITER else 0
+            hue = 140 if m < ITER_LIM else 0
             saturation = 255
-            value = int(255 * m / MAX_ITER) if m < MAX_ITER else 0
-            # Plot the point
+            value = int(255 * m / ITER_LIM) if m < ITER_LIM else 0
             draw.point([x, y], (hue, saturation, value))
             draw.point([x, HEIGHT - y], (hue, saturation, value))
 
-    im.convert('RGB').save(args.path, 'PNG')
+    image.convert('RGB').save(args.path, 'PNG')
