@@ -31,12 +31,18 @@ To make the function anonymous in traditional notation, one could use:
 $$(x) \mapsto x$$
 In the $\lambda$ calculus, however, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
-Some explanation of the symbolic logic used herein is in order. Only two symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The $\lambda$ calculus also defines ``applications,'' or one lambda expression applied to another.
+Lambda expressions can be applied by parenthesizing them and appending parameters afterward. So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+$$(\lambda x.x)C$$
+$$=\lambda x.C$$
+$$=C$$
+Some explanation of the symbolic logic used herein is in order. Only two symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The $\lambda$ calculus also defines ``applications,'' or one lambda expression applied to another \cite{horowitz}.
 
-The important thing to note about the aforementioned syntax is that in pure $\lambda$ calculus, there are \textit{no other symbols} used. This leads to some occasionally verbose definitions for otherwise simple
-$$\lambda xy.x
-% TODO: Integrate this citation into the above text
-\cite{horowitz}
+The $\lambda$ calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the $\lambda$ calculus makes use of ``currying,'' a technique (named after mathematician Haskell Curry) to transform an operation which would typically require multiple parameters into a series of functions requiring only one parameter each.
+
+EXAMPLE!
+
+The important thing to note about the aforementioned syntax is that in pure $\lambda$ calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts, such as this convoluted definition of addition:
+$$\lambda xy.x$$
 
 \bibliography{research}
 \end{document}
