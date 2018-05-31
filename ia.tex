@@ -15,7 +15,7 @@
 \title{An Introduction to The Lambda Calculus}
 \author{Erik Boesen}
 \maketitle
-
+\todo{Consider more specific title}
 \begin{abstract}
 \end{abstract}
 
@@ -33,18 +33,31 @@ To make the function anonymous in traditional notation, one could use:
 $$(x) \mapsto x$$
 In the $\lambda$-calculus, however, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
-Lambda expressions can be applied by parenthesizing them and appending parameters afterward. So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
 $$(\lambda x.x)C$$
 $$=\lambda x.C$$
 $$=C$$
 Some explanation of the symbolic logic used herein is in order. Only two symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The $\lambda$-calculus also defines ``applications,'' or one lambda expression applied to another \cite{horowitz}.
 
-The important thing to note about the aforementioned syntax is that in pure $\lambda$-calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts.\todo{Add example of convoluted definition of some simple operation}
+The important thing to note about the aforementioned syntax is that in pure $\lambda$-calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts. Basic mathematical functions are generally defined through several facilities. The first important thing to know in order to redefine things like addition is the ``successor'' function:
+$$$$
 
-Throughout this paper, we will generally try to keep to the pure $\lambda$-calculus where possible, however, we may use some traditional mathematical symbols to illustrate.
 
-The $\lambda$-calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the $\lambda$-calculus makes use of ``currying,'' a technique (named after mathematician Haskell Curry) to transform an operation which would typically require multiple parameters into a series of functions requiring only one parameter each.
-$$\lambda xy.x+y
+Throughout this paper, we will generally try to keep to the pure $\lambda$-calculus where possible, however, given that this is typically inconvenient,
+
+\section{Currying}
+The $\lambda$-calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the $\lambda$-calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
+$$\lambda xyz.x+y+z$$\todo{Use pure equation somehow?}
+would expand to
+$$\lambda x.\lambda y.\lambda z.x+y+z$$
+These two expressions are equivalent, assuming that the impure syntax used in the first represents one function with three parameters $x$, $y$, and $z$. Let us see how this expression would be applied:
+$$(\lambda x.\lambda y.\lambda z.x+y+z)ABC$$
+The outer function would be applied first, and the single parameter it accepts, $x$, would be substituted into the body\todo{Right name?} of the enclosed function. So, the above expression would first simplify to:
+$$(\lambda y.\lambda z.A+y+z)BC$$
+$$(\lambda z.A+B+z)C$$
+$$A+B+C$$
+
+\section{Recursion and the Y Combinator}
 
 \bibliography{research}
 \end{document}
