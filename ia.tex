@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{todonotes}
+\usepackage{amsmath}
 
 \addtolength{\oddsidemargin}{-.875in}
 \addtolength{\evensidemargin}{-.875in}
@@ -58,13 +59,29 @@ $$(\lambda y.\lambda z.A+y+z)BC$$
 $$(\lambda z.A+B+z)C$$
 $$A+B+C$$
 
-\section{Recursion and the Y Combinator}
-One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that recursion---or, the calling of a function within its own body---is impossible.
+\section{Recursion}
+One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
 
-In standard mathematical notation or while writing code for a Turing machine (computer), one might define a function such as the factorial as follows:
-$$factorial(x)=x*factorial(x-1)$$
-This is an example of recursion.
+Recursion is a technique used frequently within the field of computer science, but it finds a use within mathematical notation as well.
 
+A classic example of recursion is a redefinition of the factorial operator:
+\[
+factorial(x)=
+\begin{cases}
+    x\times factorial(x-1) & x>1 \\
+    1 & x\leq 1
+\end{cases}
+\]
+This function may appear initially confusing. An illustration may help. Let us take the factorial of the integer $4$. First, we begin with our initial call to the function:
+$$factorial(4)$$
+As $4>1$, the first case is met, so:
+$$factorial(4)=4\times factorial(3)$$
+From here, we can clearly see how the expression will expand.
+$$factorial(4)=4\times factorial(3)=4\times 3\times factorial(2)=4\times 3\times 2\times factorial(1)$$
+Since evaluating $factorial(1)$ uses the ``base case'' of $factorial$, the expression will evaluate to:
+$$4\times 3\times 2\times 1=24$$
+
+\section{The Y Combinator}
 Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is possible to create recursion using the lambda calculus. To do so, we must implement the ``Y combinator.'' This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying.
 
 The Y combinator may be expressed as follows:
