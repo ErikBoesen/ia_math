@@ -6,10 +6,9 @@
 \bibliographystyle{plain}
 
 \begin{document}
-\title{The Real Y Combinator: Simulating Recursion in a Language Without It}
+\title{The Real Y Combinator:  Creating Functional Recursion in a Language Without It}
 \author{Erik Boesen}
 \maketitle
-\todo{Consider more specific title}
 \begin{abstract}
 We explain the basics of the lambda calculus, an alternate system of functional representation and mathematical representation. We take advantage of this new intuition to explain the Y combinator, a simple yet powerful construct for simulating the process of recursion in a mathematical language lacking such a concept.
 \end{abstract}
@@ -28,7 +27,7 @@ To make the function anonymous in traditional notation, one could use:
 $$(x) \mapsto x$$
 In the lambda calculus, however, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
-Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. The process of substituting a parameter into a lambda function is known as $\Beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
 $$(\lambda x.x)C$$
 $$=\lambda x.C$$
 $$=C$$
@@ -55,9 +54,7 @@ $$A+B+C$$
 \section{Recursion}
 One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
 
-Recursion is a technique used frequently within the field of computer science, but it finds a use within mathematical notation as well.
-
-A classic example of recursion is a redefinition of the factorial operator:
+Recursion is a technique used frequently within the field of computer science, but it finds much use within mathematical notation as well. A classic example of recursion is a redefinition of the factorial operator:
 \[
 factorial(x)=
 \begin{cases}
@@ -78,11 +75,15 @@ Since evaluating $factorial(1)$ uses the ``base case'' of $factorial$, the expre
 $$4\times 3\times 2\times 1=24$$
 
 \section{The Y Combinator}
-Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is possible to create recursion using the lambda calculus. To do so, we must implement the ``Y combinator.'' This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying.
+Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is possible to create recursion using the lambda calculus. To do so, we must implement the ``Y combinator.''\cite{ycombmedium} Though the name of the method is known better as that of a Silicon Valley startup corporation incubator, the Y combinator originated in the lambda calculus as a useful tool for simulating recursion even in a calculus lacking names or otherwise not allowing for recursive computation. This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying.
+
+To understand how the Y combinator works, we need to recall how lambda expressions associate. \todo{Not done}
 
 The Y combinator may be expressed as follows:
 $$Y=\lambda f.(\lambda x.f(x x))(\lambda x.f(x x))$$
-Let us
+Let us analyze the individual parts of this expression in order to understand how it allows for recursion.
+
+We first need to
 
 \bibliography{research}
 \end{document}
