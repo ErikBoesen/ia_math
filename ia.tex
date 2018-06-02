@@ -14,7 +14,7 @@
 \date{\parbox{\linewidth}{\centering%
   \today\endgraf\bigskip
   Ms. Jennifer Jayson \& Mr. William Snyder\endgraf\medskip
-  IB High Level Math \endgraf\medskip
+  IB High Level Math\endgraf\medskip
   George Mason High School}}
 \maketitle
 \begin{abstract}
@@ -35,7 +35,7 @@ To make the function anonymous in traditional notation, one could use:
 $$(x) \mapsto x$$
 In the lambda calculus, however, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
-Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. The process of substituting a parameter into a lambda function is known as $\Beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. The process of substituting a parameter into a lambda function is known as $\beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
 $$(\lambda x.x)C$$
 $$=\lambda x.C$$
 $$=C$$
@@ -62,7 +62,7 @@ $$A+B+C$$
 \section{Recursion}
 One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
 
-Recursion is a technique used frequently within the field of computer science, but it finds much use within mathematical notation as well. A classic example of recursion is a redefinition of the factorial operator:
+Recursion is a technique used frequently within the field of computer science, but it finds much use within mathematical operations as well. A classic example of recursion is a redefinition of the factorial operator:
 \[
 factorial(x)=
 \begin{cases}
@@ -85,7 +85,10 @@ $$4\times 3\times 2\times 1=24$$
 \section{The Y Combinator}
 Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is possible to create recursion using the lambda calculus. To do so, we must implement the ``Y combinator.''\cite{ycombmedium} Though the name of the method is known better as that of a Silicon Valley startup corporation incubator, the Y combinator originated in the lambda calculus as a useful tool for simulating recursion even in a calculus lacking names or otherwise not allowing for recursive computation. This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying.
 
-To understand how the Y combinator works, we need to recall how lambda expressions associate. \todo{Not done}
+To understand how the Y combinator works, we need to recall how lambda expressions associate. Lambda expressions are ``left-associative,'' meaning that the leftmost function in an application will be evaluated first, and expressions to the right of one expression will be used as parameters to that on the left. \textit{Any} expression can be substituted as a parameter to a function. So:
+$$(\lambda x.xx)\lambda x.x$$
+$$=(\lambda x.x)(\lambda x.x)$$
+$$=\lambda x.x$$
 
 The Y combinator may be expressed as follows:
 $$Y=\lambda f.(\lambda x.f(x x))(\lambda x.f(x x))$$
