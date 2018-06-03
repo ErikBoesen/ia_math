@@ -39,11 +39,12 @@ would become
 $$(x,y,z) \mapsto \sqrt{x^2+y^2+z^2}$$
 Understanding this syntax, the transition to lambda calculus notation is relatively intuitive. Let us return to our identity map $x\mapsto x$ from above. In the lambda calculus, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
-Lambda calculus expressions associate left-to-right. So, Lambda expressions can be applied simply by parenthesizing them and appending parameters afterward. The process of substituting a parameter into a lambda function is known as $\beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+Some explanation of the symbolic logic used herein is in order. Only two operational symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The lambda calculus also defines ``applications:'' the \textit{application} of a function to a parameter \cite{horowitz}.
+
+Lambda calculus expressions associate left-to-right. So, lambda applications can be created simply by parenthesizing an expression and appending a parameter afterward. The process of substituting a parameter into a lambda function is known as $\beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
 $$(\lambda x.x)C$$
 $$=\lambda x.C$$
 $$=C$$
-Some explanation of the symbolic logic used herein is in order. Only two symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The lambda calculus also defines ``applications,'' or one lambda expression applied to another \cite{horowitz}.
 
 The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts. Basic mathematical functions are generally defined through several facilities. The first important thing to know in order to redefine things like addition is the ``successor'' function:
 $$$$
@@ -101,6 +102,7 @@ Let us analyze the individual parts of this expression in order to understand ho
 We first need to
 
 \section{Conclusion}
+
 
 \section{Reflection}
 I first chose to research the lambda calculus due to my extant interest within the field of computer science. I've had past experience with the functional programming paradigm, the study of which was a truly transformative experience. Conventional programming---with languages like C, Java, Python, etc.---is structured around traditional mathematical structures. When I learned about functional programming, I occasionally heard references to the lambda calculus, an apparently mysterious and confusing alternate form for mathematical syntax and logic.
