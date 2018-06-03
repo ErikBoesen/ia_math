@@ -42,12 +42,21 @@ Understanding this syntax, the transition to lambda calculus notation is relativ
 $$\lambda x.x$$
 Some explanation of the symbolic logic used herein is in order. Only two operational symbols in the calculus are defined, $\lambda$ and $.$ (some other symbols, such as parentheses, are used intuitively for grouping and other purposes). The former is used to represent a function definition, whereas the latter separates parameters from that function's internal logic. The sum of those two components is referred to as an ``abstraction.'' The lambda calculus also defines ``applications:'' the \textit{application} of a function to a parameter \cite{horowitz}.
 
-Lambda calculus expressions associate left-to-right. So, lambda applications can be created simply by parenthesizing an expression and appending a parameter afterward. The process of substituting a parameter into a lambda function is known as $\beta$-reduction (beta-reduction). So, to apply our identity function to some constant $C$, we would perform the following lambda computation:
+Lambda calculus expressions associate left-to-right. So, lambda applications can be created simply by parenthesizing an expression and appending a parameter afterward. The process of substituting a parameter into a lambda function is known as $\beta$-reduction (beta-reduction) \cite{hudakintro}. So, to apply our identity function to some constant $C$, we would perform the following lambda computation using $\beta$-reduction:
 $$(\lambda x.x)C$$
-$$=\lambda x.C$$
+$$=x[x:=C]$$
 $$=C$$
 
-The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts. Basic mathematical functions are generally defined through several facilities. The first important thing to know in order to redefine things like addition is the ``successor'' function:
+One final important notion in the lambda calculus is the
+{{{{{{bound and free variables}}}}}}
+
+The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or gramatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts. For example, to use the process of addition, one must go through an absurd quantity of mathematical manipulation.
+
+First,
+
+
+
+ Basic mathematical functions are generally defined through several facilities. The first important thing to know in order to redefine things like addition is the ``successor'' function:
 $$$$
 
 
