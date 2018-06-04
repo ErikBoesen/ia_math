@@ -52,6 +52,19 @@ One final important distinction in the lambda calculus is that between bound and
 $$\lambda \theta.\theta \xi$$
 $\theta$ is a bound variable, and $\xi$ a free variable because while $\theta$ is a parameter to the abstraction given, $\xi$ is not \cite{stanfordlc}.
 
+\subsection{Currying}
+The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
+$$\lambda xyz.x+y+z$$\todo{Use pure equation somehow?}
+would expand to
+$$\lambda x.\lambda y.\lambda z.x+y+z$$
+These two expressions are equivalent, assuming that the impure syntax used in the first represents one function with three parameters $x$, $y$, and $z$. Let us see how this expression would be applied:
+$$(\lambda x.\lambda y.\lambda z.x+y+z)ABC$$
+The outer function would be applied first, and the single parameter it accepts, $x$, would be substituted into the body\todo{Right name?} of the enclosed function. So, the above expression would first simplify as follows:
+$$(\lambda y.\lambda z.A+y+z)BC$$
+$$(\lambda z.A+B+z)C$$
+$$A+B+C$$
+
+\section{Illustration: Defining Exponentiation}
 The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or syntatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts, which must be redefined before they can be used. One must go through a frankly absurd number of operations in order to perform the simplest of mathematical processes. To illustrate, let us walk through the process of defining exponentiation. To any remotely experienced mathematician the operation is doubtless well known. In the lambda calculus, however, we must do a great deal of work to define this capability.
 
 First, we must define what numbers are.\footnote{Yes, seriously.} The lambda calculus uses ``Church numerals'' to represent numerical quantities. Church numerals are actually themselves lambda abstractions, which take in a function and compose it $n$ times. Church numerals are notated with an underline \cite{cornelllc}.
@@ -82,18 +95,6 @@ $$\lambda x.\lambda e.x ((\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx
 In mathematical literature, occasionally conventional mathematical syntax will be mixed into lambda expressions. Strictly speaking, pure lambda calculus cannot use even the most basic of operators like $+$, $-$, $\times$, $\div$, exponents/roots, etc. However, for legibility and terseness, these symbols are often used. Reasonably so; it is far easier to understand this equivalent of the three-dimensional vector length formula:
 $$\lambda x.\lambda y.\lambda z.\sqrt{x^2+y^2+z^2}$$
 Conveying this operation as a pure lambda expression would require a prohibitively large quantity of space and writing.
-
-\section{Currying}
-The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
-$$\lambda xyz.x+y+z$$\todo{Use pure equation somehow?}
-would expand to
-$$\lambda x.\lambda y.\lambda z.x+y+z$$
-These two expressions are equivalent, assuming that the impure syntax used in the first represents one function with three parameters $x$, $y$, and $z$. Let us see how this expression would be applied:
-$$(\lambda x.\lambda y.\lambda z.x+y+z)ABC$$
-The outer function would be applied first, and the single parameter it accepts, $x$, would be substituted into the body\todo{Right name?} of the enclosed function. So, the above expression would first simplify as follows:
-$$(\lambda y.\lambda z.A+y+z)BC$$
-$$(\lambda z.A+B+z)C$$
-$$A+B+C$$
 
 \section{Recursion}
 One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
