@@ -66,19 +66,22 @@ $$\lambda n.\lambda f.\lambda x.f((n f) x)$$
 \todo{This looks kind of plagiarized. It's not, but it has similar format by coincidence to a Cornell article.}
 
 Building upon the successor function, we can define addition as follows:
-$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x))$$
+$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
 \todo{Still don't quite understand this notation}
-Essentially, we execute succession $n$ times to add $n$ to the numeral $m$.
+Put simply, we execute succession $n$ times to add $n$ to the numeral $m$.
 
-Building off this definition of addition, we can define multiplication as simply repeated addition:
-$$\lambda m.\lambda n.m (ADD n) 0$$
+Building off this definition of addition, we can define multiplication as simply repeated addition. We'll need to use $\alpha$-conversion, renaming variables in the aforementioned addition function:
+%$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x) \to \lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
+$$\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$$
+This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name functions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornellc}\cite{rojastutorial} and others, mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) 0$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
 
-
+The relationship between addition and multiplication is roughly the same as that between multiplication and exponentiation. We simply need to repeat multiplication:
+$$\lambda x.\lambda e.x ((\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}) e) \underline{1}$$
 
 
 In mathematical literature, occasionally conventional mathematical syntax will be mixed into lambda expressions. Strictly speaking, pure lambda calculus cannot use even the most basic of operators like $+$, $-$, $\times$, $\div$, exponents/roots, etc. However, for legibility and terseness, these symbols are often used. Reasonably so; it is far easier to understand this equivalent of the three-dimensional vector length formula:
 $$\lambda x.\lambda y.\lambda z.\sqrt{x^2+y^2+z^2}$$
-\todo{Than... pure LC version}
+Conveying this operation as a pure lambda expression would require a prohibitively large quantity of space and writing.
 
 \section{Currying}
 The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
