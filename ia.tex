@@ -61,16 +61,24 @@ $$\underline{2}=\lambda f.\lambda x.f(fx)$$
 $$\underline{3}=\lambda f.\lambda x.f(f(fx))$$
 $$\underline{4}=\lambda f.\lambda x.f(f(f(fx)))$$
 $$...$$
-The first step, having now invented numbers, towards exponentiation is addition. We can define addition as follows:
-$$\lambda mn.(m S) n$$
+The first step, having now invented numbers,\footnote{Good riddance.} towards exponentiation is the ``successor'' function. This lambda expression takes a function $f$ as input, then composes it so as to return, for input $n$, $n+1$.
+$$\lambda n.\lambda f.\lambda x.f((n f) x)$$
+\todo{This looks kind of plagiarized. It's not, but it has similar format by coincidence to a Cornell article.}
+
+Building upon the successor function, we can define addition as follows:
+$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x))$$
+\todo{Still don't quite understand this notation}
+Essentially, we execute succession $n$ times to add $n$ to the numeral $m$.
+
+Building off this definition of addition, we can define multiplication as simply repeated addition:
+$$\lambda m.\lambda n.m (ADD n) 0$$
 
 
 
- Basic mathematical functions are generally defined through several facilities. The first important thing to know in order to redefine things like addition is the ``successor'' function:
-$$$$
 
-
-Throughout this paper, we will generally try to keep to the pure lambda calculus where possible, however, given that this is typically inconvenient,
+In mathematical literature, occasionally conventional mathematical syntax will be mixed into lambda expressions. Strictly speaking, pure lambda calculus cannot use even the most basic of operators like $+$, $-$, $\times$, $\div$, exponents/roots, etc. However, for legibility and terseness, these symbols are often used. Reasonably so; it is far easier to understand this equivalent of the three-dimensional vector length formula:
+$$\lambda x.\lambda y.\lambda z.\sqrt{x^2+y^2+z^2}$$
+\todo{Than... pure LC version}
 
 \section{Currying}
 The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
@@ -91,8 +99,8 @@ Recursion is a technique used frequently within the field of computer science, b
 \[
 factorial(x)=
 \begin{cases}
-    x\times factorial(x-1) & x>1 \\
-    1 & x\leq 1
+    x factorial(x-1) & x>0 \\
+    1 & x=0
 \end{cases}
 \]
 This function may appear initially confusing. An illustration may help. Let us take the factorial of the integer $4$. First, we begin with our initial call to the function:
