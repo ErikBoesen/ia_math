@@ -30,14 +30,14 @@ The notation and concept of the lambda calculus was first described in the 1930s
 
 More recently, the system and its logical process has gained new notoriety as the basis for new forms of computer programming. The lambda calculus is a ``universal programming language'' \cite{rojastutorial}, and can, on its own, represent and perform the computations of a Turing machine and vice versa, even without a computer to run it. The lambda calculus is the basis for functional programming languages, or those whose attributes include treating functions as data and using a declarative programming paradigm\footnote{Declarative programming refers to the style of programming or mathematical notation where logic, not control flow, of a program is defined \cite{declarativeprogadv}. So, rather than specifying a sequence of instructions, a declarative programmer would specify what logic functions contain, not necessarily in a linear manner. In short, while non-declarative (``imperative'') programming involves determination of what a function should \textit{do}, declarative programming emphazies what a function \textit{is}.} \cite{hudakevolution}. The topic of functional programming is beyond the scope of this paper, however, interested readers are invited to investigate the topic through papers including \cite{totalfp} and \cite{hudakevolution}.
 
-\section{Notation}
+\section{Lambda Notation}
 The notation used to describe lambda calculus expressions seldom bears intentional resemblance to more traditional systems of mathematical notation. To describe, for instance, the identity function (in which a single parameter is given as input and is then returned without modification) in traditional notation, one would likely use some variation upon:
 $$f(x)=x$$
-To make the function anonymous in traditional notation, one could use a ``map'' expression \cite{intrographtheory}, which simply enumerates the parameters to a function and, following the map symbol $\mapsto$, gives the function's internal logic:
+To make the function anonymous---remove its name---in traditional notation, one could use a ``map'' expression \cite{intrographtheory}, which simply enumerates the parameters to a function and, following the map symbol $\mapsto$, gives the function's internal logic:
 $$x\mapsto x$$
-Any function can easily be translated to use anonymous mapping. For example, the function for finding the length of a three-dimensional vector
+Functions in traditional mathematics can easily be translated to use anonymous mapping. For example, the function for finding the length of a three-dimensional vector
 $$L(x,y,z)=\sqrt{x^2+y^2+z^2}$$
-would become
+could become
 $$(x,y,z) \mapsto \sqrt{x^2+y^2+z^2}$$
 Understanding this syntax, the transition to lambda calculus notation is relatively intuitive. Let us return to our identity map $x\mapsto x$ from above. In the lambda calculus, an anonymous identity function would be notated thus:
 $$\lambda x.x$$
