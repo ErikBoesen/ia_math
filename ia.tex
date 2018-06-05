@@ -49,8 +49,8 @@ $$=x[x:=C]$$
 $$=C$$
 
 One final important distinction in the lambda calculus is that between bound and free variables. A bound variable is one which is a parameter to the lambda abstraction, whereas a free variable is any other variable. So, in the expression
-$$\lambda \theta.\theta \xi$$
-$\theta$ is a bound variable, and $\xi$ a free variable because while $\theta$ is a parameter to the abstraction given, $\xi$ is not \cite{stanfordlc}.
+$$\lambda \theta.\theta \lambda xi$$
+$\theta$ is a bound variable, and $\lambda xi$ a free variable because while $\theta$ is a parameter to the abstraction given, $\lambda xi$ is not \cite{stanfordlc}.
 
 \subsection{Currying}
 The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
@@ -128,16 +128,16 @@ $$=\lambda x.x$$
 
 The Y combinator may be expressed as follows:
 $$\lambda f.(\lambda x.f(x x))(\lambda x.f(x x))$$
-To demonstrate how the Y combinator creates recrusion, take the lambda abstraction $\lambda \omega.\omega$ (which, through $\alpha$-conversion, is equivalent to our identity function $\lambda x.x$ from earlier).
+To demonstrate how the Y combinator creates recursion, take the lambda abstraction $\lambda \omega.\omega$ (which, through $\alpha$-conversion, is equivalent to our identity function $\lambda x.x$ from earlier).
 
 We start by applying the Y combinator, as above notated, to our abstraction.
 $$(\lambda f.(\lambda x.f(x x))(\lambda x.f(x x)))(\lambda \omega.\omega)$$
-In this instance, the Y combinator ($(\lambda f.(\lambda x.f(x x))(\lambda x.f(x x)))$) accepts a single parameter of our lambda abstraction $\lambda \omega.\omega$ as parameter $f$. We can use $\beta$-reduction to reduce the expression by substituting in $(\lambda \omega.\omega$ for $f$ where it occurs within the Y combinator.
-$$(\x.f(x x))(\x.f(x x))[f:=(\lambda \omega.\omega)]$$
-$$(\x.(\lambda \omega.\omega)(x x))(\x.(\lambda \omega.\omega)(x x))$$
-At this point we need to substitute the second outer lambda abstraction (not our identity) as the parameter $x$ to the first.
-$$(\lambda \omega.\omega)(x x)[x:=(\x.(\lambda \omega.\omega)(x x))]$$\footnote{It is not necessarily to perform $\alpha$-conversion in this instance because the substitution of our new $x$ replaces all instances of that variable in the expression being applied. Therefore, there is no naming collision.}
-$$(\lambda \omega.\omega)((\x.(\lambda \omega.\omega)(x x))(\x.(\lambda \omega.\omega)(x x)))$$
+In this instance, the Y combinator $(\lambda f.(\lambda x.f(x x))(\lambda x.f(x x)))$ accepts a single parameter of our lambda abstraction $\lambda \omega.\omega$ as parameter $f$. We can use $\beta$-reduction to reduce the expression by substituting $\lambda \omega.\omega$ for $f$ where it occurs within the Y combinator.
+$$(\lambda x.f(x x))(\lambda x.f(x x))[f:=(\lambda \omega.\omega)]$$
+$$(\lambda x.(\lambda \omega.\omega)(x x))(\lambda x.(\lambda \omega.\omega)(x x))$$
+At this point we need to substitute the second outer lambda abstraction (not our identity) as the parameter $x$ to the first.\footnote{It is not necessarily to perform $\alpha$-conversion in this instance because the substitution of our new $x$ replaces all instances of that variable in the expression being applied. Therefore, there is no naming collision.}
+$$(\lambda \omega.\omega)(x x)[x:=(\lambda x.(\lambda \omega.\omega)(x x))]$$
+$$(\lambda \omega.\omega)((\lambda x.(\lambda \omega.\omega)(x x))(\lambda x.(\lambda \omega.\omega)(x x)))$$
 At this point, you will notice that we are left roughly where we were before our second $\beta$-reduction, the only difference being that our reductions have left us with a copy of our identity abstraction, which we passed into the Y combinator as parameter $f$.
 
 Through this process, the Y combinator is able to achieve recursion in a the lambda calculus---no naming required.
@@ -145,10 +145,16 @@ Through this process, the Y combinator is able to achieve recursion in a the lam
 To further understand the Y combinator, a fascinating exercise for the reader would be to reimplement the $factorial$ function previously described. Doing so requires implementation of boolean values (true and false), conditional operators, and subtraction. These topics are described extensively in a variety of sources, including \cite{stanfordlc}\cite{cornelllc}.
 
 \section{Conclusion}
-
+Through this paper we reviewed the basics of the lambda calculus, a new system of mathematical notation and logic. To summarize what we covered:
+\begin{itemize}
+  \item{The lambda calculus includes three syntactic rules for constructing ``lambda expressions.'' We can define variables, use ``abstractions'' to define lambda functions, and use ``application'' to apply those functions to parameters.}
+  \item{We can solve lambda expressions through reduction operations, especially $\beta$-reduction, or substitution of parameters into the body of a lambda expression.}
+  \item{We can use these simple rules to define any mathematical operation which can be run by a computer.}
+  \item{We can implement recursion through a lambda expression known as the Y combinator.}
+\end{itemize}
 
 \section{Reflection}
-I first chose to research the lambda calculus due to my extant interest within the field of computer science. I've had past experience with the functional programming paradigm, the study of which was a truly transformative experience. Conventional programming---with languages like C, Java, Python, etc.---is structured around traditional mathematical structures. When I learned about functional programming, I occasionally heard references to the lambda calculus, an apparently mysterious and confusing alternate form for mathematical syntax and logic.
+I first chose to research the lambda calculus due to my existing interest in the field of computer science. I've had past experience with the functional programming paradigm, the study of which was a truly transformative experience. Conventional programming---with languages like C, Java, Python, etc.---is structured around traditional mathematical structures. When I learned about functional programming, I occasionally heard references to the lambda calculus, an apparently mysterious and confusing alternate form for mathematical syntax and logic.
 Through this IA, I had an excellent opportunity to dive into the new and fascinating notion of this calculus, and the incredible idea that any computation can be represented using only two predefined symbols.
 
 \bibliography{research}
