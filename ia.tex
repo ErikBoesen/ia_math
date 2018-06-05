@@ -84,24 +84,23 @@ Put simply, we execute succession $n$ times to add $n$ to the numeral $m$.
 Building off this definition of addition, we can define multiplication as simply repeated addition. We'll need to use $\alpha$-conversion, renaming variables in the aforementioned addition function:
 %$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x) \to \lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
 $$\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$$
-This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name functions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornellc}\cite{rojastutorial} and others, mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
+This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name functions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornellc}\cite{rojastutorial} and others, as well as in most functional programming langauges based upon the lambda calculus, mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
 
 The relationship between addition and multiplication is roughly the same as that between multiplication and exponentiation. We simply need to repeat multiplication:
 $$\lambda x.\lambda e.x ((\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}) e) \underline{1}$$
-
 
 In mathematical literature, occasionally conventional mathematical syntax will be mixed into lambda expressions. Strictly speaking, pure lambda calculus cannot use even the most basic of operators like $+$, $-$, $\times$, $\div$, exponents/roots, etc. However, for legibility and terseness, these symbols are often used. Reasonably so; it is far easier to understand this equivalent of the three-dimensional vector length formula:
 $$\lambda x.\lambda y.\lambda z.\sqrt{x^2+y^2+z^2}$$
 Conveying this operation as a pure lambda expression would require a prohibitively large quantity of space and writing.
 
-\section{Recursion}
-One of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
+\section{Implementing Recursion in the Lambda Calculus}
+As has been previously alluded to, one of the most bizarre characteristics of the lambda calculus is its lack of natural support for naming functions. A consequence of this deficit is that the process of ``recursion'' is not as easy as one might be accustomed to.
 
 Recursion is a technique used frequently within the field of computer science, but it finds much use within mathematical operations as well. A classic example of recursion is a redefinition of the factorial operator:
 \[
 factorial(x)=
 \begin{cases}
-    x factorial(x-1) & x>0 \\
+    x\times factorial(x-1) & x>0 \\
     1 & x=0
 \end{cases}
 \]
@@ -113,12 +112,14 @@ From here, we can clearly see how the expression will expand.
 $$factorial(4)$$
 $$=4\times factorial(3)$$
 $$=4\times 3\times factorial(2)$$
-$$=4\times 3\times 2\times factorial(1)$$
-Since evaluating $factorial(1)$ uses the ``base case'' of $factorial$, the expression will evaluate to:
-$$4\times 3\times 2\times 1=24$$
+$$=4\times 3\times 2\times 1\times factorial(0)$$
+Since evaluating $factorial(0)$ uses the special ``base case'' of $factorial$, the expression will evaluate to:
+$$4\times 3\times 2\times 1\times 1=24$$
 
-\section{The Y Combinator}
-Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is possible to create recursion using the lambda calculus. To do so, we must implement the ``Y combinator.''\cite{ycombmedium} The Y combinator originated in the lambda calculus as a useful tool for simulating recursion even in a calculus lacking names or otherwise not allowing for recursive computation. This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying.
+Knowing, however, that the lambda calculus does not allow us to name functions, we must use an alternative construction known as the ``Y combinator'' to achieve our end in defining recursion.
+
+\subsection{The Y Combinator}
+Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is actually possible to create recursion even without naming any functions. To do so, we must implement the Y combinator \cite{ycombmedium}. The Y combinator originated in the lambda calculus as a useful tool for simulating recursion even in a calculus lacking names or otherwise not allowing for recursive computation. This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying \cite{compphileyc}.
 
 To understand how the Y combinator works, we need to recall how lambda expressions associate. Lambda expressions are ``left-associative,'' meaning that the leftmost function in an application will be evaluated first, and expressions to the right of one expression will be used as parameters to that on the left. \textit{Any} expression can be substituted as a parameter to a function. So:
 $$(\lambda x.xx)\lambda x.x$$
@@ -126,10 +127,20 @@ $$=(\lambda x.x)(\lambda x.x)$$
 $$=\lambda x.x$$
 
 The Y combinator may be expressed as follows:
-$$Y=\lambda f.(\lambda x.f(x x))(\lambda x.f(x x))$$
-Let us analyze the individual parts of this expression in order to understand how it allows for recursion.
+$$\lambda f.(\lambda x.f(x x))(\lambda x.f(x x))$$
+To demonstrate how the Y combinator creates recrusion, take the lambda abstraction $\lambda \omega.\omega$ (which, through $\alpha$-conversion, is equivalent to our identity function $\lambda x.x$ from earlier).
 
-We first need to
+We start by applying the Y combinator, as above notated, to our abstraction.
+$$(\lambda f.(\lambda x.f(x x))(\lambda x.f(x x)))(\lambda \omega.\omega)$$
+In this instance, the Y combinator ($(\lambda f.(\lambda x.f(x x))(\lambda x.f(x x)))$) accepts a single parameter of our lambda abstraction $\lambda \omega.\omega$ as parameter $f$. We can use $\beta$-reduction to reduce the expression by substituting in $(\lambda \omega.\omega$ for $f$ where it occurs within the Y combinator.
+$$(\x.f(x x))(\x.f(x x))[f:=(\lambda \omega.\omega)]$$
+$$(\x.(\lambda \omega.\omega)(x x))(\x.(\lambda \omega.\omega)(x x))$$
+At this point we need to substitute the second outer lambda abstraction (not our identity) as the parameter $x$ to the first.
+$$(\lambda \omega.\omega)(x x)[x:=(\x.(\lambda \omega.\omega)(x x))]$$\footnote{It is not necessarily to perform $\alpha$-conversion in this instance because the substitution of our new $x$ replaces all instances of that variable in the expression being applied. Therefore, there is no naming collision.}
+$$(\lambda \omega.\omega)((\x.(\lambda \omega.\omega)(x x))(\x.(\lambda \omega.\omega)(x x)))$$
+At this point, you will notice that we are left roughly where we were before our second $\beta$-reduction, the only difference being that our reductions have left us with a copy of our identity abstraction, which we passed into the Y combinator as parameter $f$.
+
+Through this process, the Y combinator is able to achieve recursion in a the lambda calculus---no naming required.
 
 \section{Conclusion}
 
