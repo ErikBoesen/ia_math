@@ -73,7 +73,7 @@ would expand to
 $$\lambda x.\lambda y.xy$$
 These two expressions are equivalent, assuming that the impure syntax used in the first represents one function with three parameters $x$, $y$, and $z$. Let us see how this expression would be applied:
 $$(\lambda x.\lambda y.\lambda z.x+y+z)ABC$$
-The outer function would be applied first, and the single parameter it accepts, $x$, would be substituted into the body of the enclosed function. So, the above expression would first simplify as follows:
+The outer abstraction would be applied first, and the single parameter it accepts, $x$, would be substituted into the body of the enclosed function. So, the above expression would first simplify as follows:
 $$(\lambda y.\lambda z.A+y+z)BC$$
 $$(\lambda z.A+B+z)C$$
 $$A+B+C$$
@@ -98,7 +98,7 @@ Put simply, we execute succession $n$ times to add $n$ to the numeral $m$.
 Building off this definition of addition, we can define multiplication as simply repeated addition. We'll need to use $\alpha$-conversion, renaming variables in the aforementioned addition function:
 %$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x) \to \lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
 $$\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$$
-This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name functions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornellc}\cite{rojastutorial} and others, as well as in most functional programming langauges based upon the lambda calculus, mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
+This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name abstractions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornellc}\cite{rojastutorial} and others, as well as in most functional programming langauges based upon the lambda calculus, mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
 
 The relationship between addition and multiplication is roughly the same as that between multiplication and exponentiation. We simply need to repeat multiplication:
 $$\lambda x.\lambda e.x ((\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}) e) \underline{1}$$
@@ -131,12 +131,12 @@ $$=4\times 3\times 2\times 1\times factorial(0)$$
 Since evaluating $factorial(0)$ uses the special ``base case'' of $factorial$, the expression will evaluate to:
 $$4\times 3\times 2\times 1\times 1=24$$
 
-Knowing, however, that the lambda calculus does not allow us to name functions, we must use an alternative construction known as the ``Y combinator'' to achieve our end in defining recursion.
+Knowing, however, that the lambda calculus does not allow us to name abstractions, we must use an alternative construction known as the ``Y combinator'' to achieve our end in defining recursion.
 
 \subsection{The Y Combinator}
 Since lambda expressions are anonymous, no strategy for programatic recursion using the notation is immediately evident. However, it is actually possible to create recursion even without naming any functions. To do so, we must implement the Y combinator \cite{ycombmedium}. The Y combinator originated in the lambda calculus as a useful tool for simulating recursion even in a calculus lacking names or otherwise not allowing for recursive computation. This technique was discovered by mathematician Haskell Curry, whom you may remember as the namesake of the process of currying \cite{compphileyc}.
 
-To understand how the Y combinator works, we need to recall how lambda expressions associate. Lambda expressions are ``left-associative,'' meaning that the leftmost function in an application will be evaluated first, and expressions to the right of one expression will be used as parameters to that on the left. \textit{Any} expression can be substituted as a parameter to a function. So:
+To understand how the Y combinator works, we need to recall how lambda expressions associate. Lambda expressions are ``left-associative,'' meaning that the leftmost abstraction in an application will be evaluated first, and expressions to the right of one expression will be used as parameters to that on the left. \textit{Any} expression can be substituted as a parameter to a function. So:
 $$(\lambda x.xx)\lambda x.x$$
 $$=(\lambda x.x)(\lambda x.x)$$
 $$=\lambda x.x$$
