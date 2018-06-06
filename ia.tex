@@ -92,7 +92,7 @@ The first step, having now invented numbers, towards exponentiation is the ``suc
 $$\lambda n.\lambda f.\lambda x.f((n f) x)$$
 
 Building upon the successor function, we can define addition as follows:
-$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
+$$\lambda m.\lambda n.\lambda f.\lambda x.(m f) ((n f) x)$$
 Put simply, we execute succession $n$ times to add $n$ to the numeral $m$.
 
 Building off this definition of addition, we can define multiplication as simply repeated addition. We'll need to use $\alpha$-conversion, renaming variables in the aforementioned addition function:
