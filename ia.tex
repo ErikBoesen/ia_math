@@ -63,8 +63,8 @@ $$=C$$
 You will notice that we here make use of the syntax $x[x:=C]$. This is an idiom used during $\beta$-reduction to make clear the process of substitution being undertaken.
 
 A final important distinction in the lambda calculus is that between bound and free variables. A bound variable is one which is a parameter to the lambda abstraction, whereas a free variable is any other variable. So, in the expression
-$$\lambda \theta.\theta \lambda \xi$$
-$\theta$ is a bound variable, and $\lambda \xi$ a free variable because while $\theta$ is a parameter to the abstraction given, $\lambda \xi$ is not \cite{stanfordlc}.
+$$\lambda \theta.\theta \xi$$
+$\theta$ is a bound variable, and $\xi$ a free variable because while $\theta$ is a parameter to the abstraction given, $\xi$ is not \cite{stanfordlc}.
 
 \subsection{Currying}
 The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
