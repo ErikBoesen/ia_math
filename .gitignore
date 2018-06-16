@@ -220,6 +220,6 @@ TSWLatexianTemp*
 *-tags.tex
 
 # Project
-*.pdf
+ia.pdf
 .DS_Store
 *.swp
