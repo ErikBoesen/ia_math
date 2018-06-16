@@ -219,5 +219,7 @@ TSWLatexianTemp*
 # expex forward references with \gathertags
 *-tags.tex
 
+# Project
 *.pdf
 .DS_Store
+*.swp
