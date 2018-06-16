@@ -6,6 +6,6 @@ I previously started drafting my IA on the topic of fractals such as the Mandelb
 ## Files
 * `ia.tex` - Main typesetting document. LaTeX markup for IA.
 * `research.bib` - BibTeX-notated bibliography.
-* `instructions.txt` - Text of initial instructions offered for assignment. Posted on Schoology by my AP BC Calculus instructor, Ms. Jayson.
-* `recommendations.txt` - Email sent by Ms. Jayson giving advice for general improvements students ought to make. Sent to all students in my class, so not terribly specific to my own work.
-* `firstmarkup.pdf` - Scan of printed copy of first IA draft, written upon and graded by Ms. Jayson.
+* `instructions/initial.txt` - Text of initial instructions offered for assignment. Posted on Schoology by my AP BC Calculus instructor, Ms. Jayson.
+* `instructions/revision.txt` - Email sent by Ms. Jayson giving advice for general improvements students ought to make. Sent to all students in my class, so not terribly specific to my own work.
+* `feedback/firstmarkup.pdf` - Scan of printed copy of first IA draft, written upon and graded by Ms. Jayson.
