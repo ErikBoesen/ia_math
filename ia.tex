@@ -59,13 +59,35 @@ In addition to variables, which, as in conventional mathematics, can be any symb
 
 The lambda calculus also defines ``application,'' the passing of a  function to a parameter to a function \cite{horowitz}. Lambda calculus expressions associate left-to-right. So, lambda abstractions can be applied simply by parenthesizing the abstraction and appending a parameter afterward.
 
-After one constructs a lambda expression, one can solve it through the process of ``reduction.'' The most prevalent form of reduction is the process of substituting a parameter into a lambda function. That process is referred to as $\beta$-reduction (beta-reduction) \cite{hudakintro}. The first is $\alpha$-conversion (alpha-conversion), in which one variable name is substituted for another to prevent naming collisions, as in $\lambda x.B[x] \to \lambda y.B[y]$, where $B$ represents the lambda body \cite{hudakintro}. \footnote{The need for $\alpha$-conversion may be mitigated through use of a De Bruijn index, which we will for the moment ignore \cite{debruijn}.} The final reduction operation, and the most complex of the three, is $\eta$-conversion, which states that for a bound variable x, $\lambda x.Bx \to B$. Stated more transparently, if there exists a lambda abstraction which does nothing beyond applying another abstraction to its single parameter, the outer abstraction can be removed in favor of a direct use of the wrapped one \cite{etared}.
+After one constructs a lambda expression, one can solve it through the process of ``reduction.'' The most prevalent form of reduction is the process of substituting a parameter into a lambda function. That process is referred to as $\beta$-reduction (beta-reduction) \cite{hudakintro}.
 
-As an example of the reduction process ($\beta$-reduction), to apply our identity function to some constant $C$, we would perform the following lambda computation:
+As an example of $\beta$-reduction, to apply our identity function to some other variable $C$, we would perform the following lambda computation:
 $$(\lambda x.x)C$$
 $$=x[x:=C]$$
 $$=C$$
 You will notice that we here make use of the syntax $x[x:=C]$. This is an idiom used during $\beta$-reduction to make clear the process of substitution being undertaken.
+
+A second reduction operation is $\alpha$-conversion (alpha-conversion), in which one variable name is substituted for another to prevent naming collisions, as in $\lambda x.B[x] \to \lambda y.B[y]$, where $B$ represents the lambda body \cite{hudakintro}. \footnote{The need for $\alpha$-conversion may be mitigated through use of a De Bruijn index, which we will for the moment ignore \cite{debruijn}.}
+
+$\alpha$-conversion may be necessary in cases where names of variables clash. Take the following lambda expression:
+$$\lambda y.\lambda x.yx$$
+Alone, this expression raises no conflicts. However, imagine what would happen if we were to apply the expression to another with similar variable names:
+$$(\lambda y.\lambda x.yx)(\lambda x.x)$$
+We can first perform $\beta$-reduction as before.
+$$\lambda x.yx[y:=\lambda x.x]$$
+And here arises the problem. We are unable to complete the reduction, because doing so would cause the variable $x$ to be used in multiple ways.
+$$\lambda x.(\lambda \textbf{x}.\textbf{x})x$$
+The variables $\textbf{x}$ rendered above in bold are different from the others, but their names are unable to distinguish between the two. So, to reduce this expression properly and without conflict, we can use $\alpha$-conversion. Let us restart the process of reduction:
+$$(\lambda y.\lambda x.yx)(\lambda x.x)$$
+We perform $\alpha$-reduction first, using standard notation:
+$$(\lambda y.\lambda x.yx)(\lambda x.x[z])$$
+We are then left with:
+$$(\lambda y.\lambda x.yx)(\lambda z.z)$$
+We can now use $\beta$-reduction to simplify this expression without conflict.
+$$\lambda x.yx[y:=\lambda z.z]$$
+$$\lambda x.(\lambda z.z)x$$
+
+The final reduction operation, and the most complex of the three, is $\eta$-conversion, which states that for a bound variable x, $\lambda x.Bx \to B$. Stated more transparently, if there exists a lambda abstraction which does nothing beyond applying another abstraction to its single parameter, the outer abstraction can be removed in favor of a direct use of the wrapped one \cite{etared}.
 
 A final important distinction in the lambda calculus is that between bound and free variables. A bound variable is one which is a parameter to the lambda abstraction, whereas a free variable is any other variable. So, in the expression
 $$\lambda \theta.\theta \xi$$
