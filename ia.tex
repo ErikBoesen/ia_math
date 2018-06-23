@@ -71,7 +71,7 @@ $$=C$$
 You will notice that we here make use of the syntax $x[x:=C]$. This is an idiom used during $\beta$-reduction to make clear the process of substitution being undertaken.
 
 \subsubsection{$\alpha$-conversion}
-A second reduction operation is $\alpha$-conversion (alpha-conversion), in which one variable name is substituted for another to prevent naming collisions, as in $\lambda x.B[x] \to \lambda y.B[y]$, where $B$ represents the lambda body \cite{hudakintro}. \footnote{The need for $\alpha$-conversion may be mitigated through use of a De Bruijn index, which we will for the moment ignore \cite{debruijn}.}
+A second reduction operation is $\alpha$-conversion (alpha-conversion), in which one variable name is substituted for another to prevent naming collisions, as in $\lambda x.B[x] \to \lambda y.B[y]$, where $B$ represents the lambda body \cite{hudakintro}.\footnote{The need for $\alpha$-conversion may be mitigated through use of a De Bruijn index, which we will for the moment ignore \cite{debruijn}.}
 
 $\alpha$-conversion may be necessary in cases where names of variables clash. Take the following lambda expression:
 $$\lambda y.\lambda x.yx$$
