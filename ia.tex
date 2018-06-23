@@ -106,15 +106,20 @@ $\theta$ is a bound variable, and $\xi$ a free variable because while $\theta$ i
 
 \subsection{Currying}
 The lambda calculus' syntax for representation of multi-parameter functions is potentially surprising. Purely speaking, there is no notion of multi-parameter functions. Rather, the lambda calculus makes use of ``currying,'' a technique named after mathematician Haskell Curry. In this process, a function which would typically require multiple parameters transforms into a series of functions requiring only one parameter each. So,
-$$\lambda xy.xy$$
+$$\lambda xyz.xyz$$
 would expand to
-$$\lambda x.\lambda y.xy$$
+$$\lambda x.\lambda y.\lambda z.xyz$$
 These two expressions are equivalent, assuming that the impure syntax used in the first represents one function with three parameters $x$, $y$, and $z$. Let us see how this expression would be applied:
-$$(\lambda x.\lambda y.\lambda z.x(yz))ABC$$
-The outer abstraction would be applied first, and the single parameter it accepts, $x$, would be substituted into the body of the enclosed function. So, the above expression would first simplify as follows:
-$$(\lambda y.\lambda z.A(yz)BC$$
-$$(\lambda z.A(Bz))C$$
-$$A(BC)$$
+$$(\lambda x.\lambda y.\lambda z.xyz)ABC$$
+The outer abstraction would be applied first, and the single parameter it accepts, $x$, would be substituted through $\beta$-reduction into the body of the enclosed abstraction. So, the expression would reduce as follows:
+$$(\lambda y.\lambda z.xyz[x:=A])BC$$
+$$(\lambda y.\lambda z.Ayz)BC$$
+A similar process takes place with the second parameter, $B$:
+$$(\lambda z.Ayz[y:=B])C$$
+$$(\lambda z.ABz)C$$
+Then, finally, $\beta$-substitution is used for a final time to yield the fully reduced expression:
+$$ABz[z:=C]$$
+$$ABC$$
 
 \section{Illustration: Defining Exponentiation}
 The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or syntatical constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts, which must be redefined before they can be used. One must go through a frankly absurd number of operations in order to perform the simplest of mathematical processes. To illustrate, let us walk through the process of defining exponentiation. To any remotely experienced mathematician the operation is doubtless well known. In the lambda calculus, however, we must do a great deal of work to define this capability.
