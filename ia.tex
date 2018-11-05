@@ -126,8 +126,8 @@ Then, finally, $\beta$-substitution is used for a final time to yield the fully 
 $$ABz[z:=C]$$
 $$ABC$$
 
-\section{Illustration: Defining Exponentiation}
-The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or syntactic constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts, which must be redefined before they can be used. One must go through a frankly absurd number of operations in order to perform the simplest of mathematical processes. To illustrate, let us walk through the process of defining exponentiation. The traditional notation needs no explanation:
+\section{Illustration: Defining Multiplication}
+The important thing to note about the aforementioned syntax is that in pure lambda calculus, there are no other symbols or syntactic constructions used. This leads to some occasionally verbose definitions for otherwise simple concepts, which must be redefined before they can be used. One must go through a frankly absurd number of operations in order to perform the simplest of mathematical processes. To even perform the simple. The traditional notation needs no explanation:
 $$
 a^3 = a\times a\times a
 $$
@@ -154,9 +154,6 @@ Building off this definition of addition, we can define multiplication as simply
 %$$\lambda m.\lambda n.\lambda fx.(m f) ((n f) x) \to \lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$$
 $$\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$$
 This expression is clearly convoluted and difficult to interpret. This is a key flaw within the pure lambda calculus. Without the ability to name abstractions, simple expressions quickly become lengthy and inconvenient to deal with.\footnote{It should be noted that some sources, including \cite{cornelllc}\cite{rojastutorial} mitigate this issue by naming lambda expressions and substituting in the expressions when solving. So, rather than the convoluted expression $\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}$, one could define $ADD=\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)$ and then write multiplication as $\lambda a.\lambda b.(ADD b) \underline{0}$. However, this is not pure lambda calculus.}
-
-The relationship between addition and multiplication is roughly the same as that between multiplication and exponentiation. We simply need to repeat multiplication:
-$$\lambda x.\lambda e.x ((\lambda a.\lambda b.a ((\lambda m.\lambda n.\lambda fx.(m f) ((n f) x)) b) \underline{0}) e) \underline{1}$$
 
 In mathematical literature, occasionally conventional mathematical syntax will be mixed into lambda expressions. Strictly speaking, pure lambda calculus cannot use even the most basic of operators like $+$, $-$, $\times$, $\div$, exponents/roots, etc. However, for legibility and terseness, these symbols are often used. Reasonably so; it is far easier to understand this equivalent of the three-dimensional vector length formula:
 $$\lambda x.\lambda y.\lambda z.\sqrt{x^2+y^2+z^2}$$
@@ -233,9 +230,9 @@ I first chose to research the lambda calculus due to my existing interest in the
 
 Through this Internal Assessment, I had an excellent opportunity to dive into the new and fascinating notion of this calculus, and the incredible idea that any computation can be represented using only two predefined symbols.
 
-I was at times challenged in comprehending the bizarre manner in which the calculus represents operations. It was tempting to impulsively use conventional syntax and operations like addition to build expressions! I eventually, though, figured out how to define exponentiation in terms of multiplication, multiplication in terms of addition, addition in terms of the successor function, all requiring knowledge of an esoteric way to define the concept of Church numerals.
+I was at times challenged in comprehending the bizarre manner in which the calculus represents operations. At times I found myself impulsively using conventional syntax and operations to build expressions! I eventually, though, figured out how to define exponentiation in terms of multiplication, multiplication in terms of addition, addition in terms of the successor function, all requiring knowledge of an esoteric way to define the concept of Church numerals.
 
-It has been often said that learning functional programming makes one a better programmer. If this is so, I believe that learning and understanding the lambda calculus certainly makes one a better mathematician. I intend to continue researching the lambda calculus and to find new ways to apply it in my work within the fields of Computer Science and mathematics.
+It has been often said that learning functional programming makes one a better programmer. If this is so, I believe that learning and understanding the lambda calculus certainly makes one a better mathematician. I intend to continue researching the lambda calculus and to find new ways to apply it in my work within the fields of computer science and mathematics.
 
 \newpage
 
